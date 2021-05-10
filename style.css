@@ -1,13 +1,3 @@
-/* SKRIPTA PHP */
-
-#skripta {
-    text-align: left;
-}
-
-#clear {
-    clear: both;
-}
-
 /* INDEX HTML */
 
 #center {
@@ -58,7 +48,7 @@ main {
     clear:both;
     padding:20px 0;
 }
-main h2 {
+#welcome {
     float:left;
 }
 #datum {
@@ -68,24 +58,26 @@ main h2 {
 section {
     text-align: left;
 }
-section h2 {
+#section_index h2 {
     width:100%;
     float:left;
     text-align:left;
 }
-section article {
+#section_index article {
     width:33%;
     float:left;
 }
-section article img,h3,p {
+#section_index article img,
+#selection_index h3,
+#selection_index p {
     width:96%;
     max-width: 600px;
     height:auto;
 }
-section article h3 {
+#section_index article h3 {
     font-size:22px;
 }
-section article p {
+#section_index article p {
     font-size:18px;
     position: relative;
     bottom:12px;
