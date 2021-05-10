@@ -1,3 +1,13 @@
+/* SKRIPTA PHP */
+
+#skripta {
+    text-align: left;
+}
+
+#clear {
+    clear: both;
+}
+
 /* INDEX HTML */
 
 #center {
@@ -99,11 +109,4 @@ label{
 #reset_submit {
     height: 25px;
     width: 80px;
-}
-
-/* SKRIPTA PHP */
-
-#skripta {
-    text-align: left;
-    max-width:1000px;
 }

@@ -43,7 +43,7 @@ if(isset($_POST['kategorija']))
                     echo $kategorija;
                 ?>
             </h2>
-            <h3>
+            <h3 id="clear">
                 <?php
                     echo $naslov_vijesti;
                 ?>
