@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMK</title>
+    <meta charset="UTF-8"/>
+    <meta name="author" content="Matija Đurekovec"/>
+    <meta http-equiv="content-language" content="hr"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" href="img/bmk-logo-fav.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div id="center">
+            <nav>
+                <ul>
+                    <li><a href="index.html"><img src="img/bmk-logo.png"></a></li>
+                    <li id="lista_polozaj"><a href="index.html">Početna</a></li>
+                    <li id="lista_polozaj"><a href="">Vijesti</a></li>
+                    <li id="lista_polozaj"><a href="unos.html">Unos vijesti</a></li>
+                    <li id="lista_polozaj"><a href="">Administracija</a></li>
+                    <li id="lista_polozaj"><a href="">O nama</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div id="center">
+            <form method="POST" action="skripta.php">
+                <label for="naslov">Naslov vijesti</label><br>
+                <input type="text" name="naslov_vijesti" autofocus><br><br>
+                <label for="kratki_sadrzaj">Kratki sadržaj vijesti (do 50 znakova)</label><br>
+                <textarea cols="50" rows="12" name="kratki_sadrzaj"></textarea><br><br>
+                <label for="sadrzaj_vijesti">Sadržaj vijesti</label><br>
+                <textarea cols="50" rows="12" name="sadrzaj_vijesti"></textarea><br><br>
+                <label for="slika" class="slika">Slika:</label><br>
+                <input type="file" accept="image/*" name="slika_input"><br><br>
+                <label for="kategorija">Kategorija vijesti:</label><br>
+                <select name="kategorija" class="kategorija">
+                    <option value="E-sports">E-sports</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Tehnika">Tehnika</option>
+                    <option value="YouTube">YouTube</option>
+                </select><br><br>
+                <label for="Spremiti">Spremiti u arhivu:</label><br>
+                <input type="checkbox" name="arhiva" id="arhiva"><br><br>
+                <input type="submit" value="Pošalji" name="reset" id="reset_submit">
+                <input type="reset" value="Poništi" name="submit" id="reset_submit">
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div id="center">
+            <p>Stranicu napravio: Matija Đurekovec</p>
+            <p>E-mail: mdurekove@tvz.hr</p>
+            <b><p>Copyright © 2021 BMK.</p></b>
+        </div>
+    </footer>
+</body>
+</html>
