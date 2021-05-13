@@ -13,35 +13,35 @@
         <div id="center">
             <nav>
                 <ul>
-                    <li><a href="index.html"><img src="img/bmk-logo.png"></a></li>
-                    <li id="lista_polozaj"><a href="index.html">Početna</a></li>
-                    <li id="lista_polozaj"><a href="">Vijesti</a></li>
-                    <li id="lista_polozaj"><a href="unos.html">Unos vijesti</a></li>
-                    <li id="lista_polozaj"><a href="">Administracija</a></li>
-                    <li id="lista_polozaj"><a href="">O nama</a></li>
+                    <li><a href="index.php"><img src="img/bmk-logo.png"></a></li>
+                    <li class="lista_polozaj"><a href="index.php">Početna</a></li>
+                    <li class="lista_polozaj"><a href="vijesti.html">Vijesti</a></li>
+                    <li class="lista_polozaj"><a href="unos.html">Unos vijesti</a></li>
+                    <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
+                    <li class="lista_polozaj"><a href="">O nama</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
         <div id="center">
-            <form method="POST" action="skripta.php">
+            <form enctype="multipart/form-data" method="POST" action="skripta.php">
                 <label for="naslov">Naslov vijesti</label><br>
-                <input type="text" name="naslov_vijesti" autofocus><br><br>
-                <label for="kratki_sadrzaj">Kratki sadržaj vijesti (do 50 znakova)</label><br>
-                <textarea cols="50" rows="12" name="kratki_sadrzaj"></textarea><br><br>
+                <input type="text" name="naslov_vijesti" autofocus required><br><br>
+                <label for="kratki_sadrzaj">Kratki sadržaj vijesti (do 190 znakova)</label><br>
+                <textarea cols="50" rows="12" name="kratki_sadrzaj" maxlength="190" required></textarea><br><br>
                 <label for="sadrzaj_vijesti">Sadržaj vijesti</label><br>
-                <textarea cols="50" rows="12" name="sadrzaj_vijesti"></textarea><br><br>
+                <textarea cols="50" rows="12" name="sadrzaj_vijesti" required></textarea><br><br>
                 <label for="slika" class="slika">Slika:</label><br>
-                <input type="file" accept="image/*" name="slika_input"><br><br>
+                <input type="file" accept="image/*" name="slika" required><br><br>
                 <label for="kategorija">Kategorija vijesti:</label><br>
                 <select name="kategorija" class="kategorija">
-                    <option value="E-sports">E-sports</option>
-                    <option value="Gaming">Gaming</option>
-                    <option value="Tehnika">Tehnika</option>
-                    <option value="YouTube">YouTube</option>
+                    <option value="E-SPORTS">E-sports</option>
+                    <option value="GAMING">Gaming</option>
+                    <option value="TEHNOLOGIJA">Tehnologija</option>
+                    <option value="YOUTUBE">YouTube</option>
                 </select><br><br>
-                <label for="Spremiti">Spremiti u arhivu:</label><br>
+                <label for="spremiti">Spremiti u arhivu:</label><br>
                 <input type="checkbox" name="arhiva" id="arhiva"><br><br>
                 <input type="submit" value="Pošalji" name="reset" id="reset_submit">
                 <input type="reset" value="Poništi" name="submit" id="reset_submit">

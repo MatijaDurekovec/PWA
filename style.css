@@ -5,8 +5,12 @@
     text-align: center;
     margin: 0 auto;
 }
+body {
+    background-color: rgb(228 , 228 , 228);
+    font-family: 'Rockwell';
+}
 header {
-    background-color: lightblue;
+    background-color: rgb(10, 111, 190);
     padding:5px ;
     font-size:21px;
     height:70px;
@@ -17,12 +21,14 @@ header img {
 }
 header a {
     text-decoration: none;
+    color:rgb(228 , 228 , 228);
     display: block;
     height: 100%;
 }
 footer {
     clear:both;
-    background-color:paleturquoise;
+    background-color: rgb(10, 111, 190);
+    color:rgb(228 , 228 , 228);
     padding:2px 0;
 }
 footer p {
@@ -39,7 +45,7 @@ li {
     display: inline-block;
     padding:0 4px;
 }
-#lista_polozaj {
+.lista_polozaj {
     position: relative;
     bottom: 15px;
 }
@@ -54,36 +60,51 @@ main {
 #datum {
     float:right;
     margin-right: 32px;
+    opacity: 0.4;
+    font-size:20px;
 }
-section {
+.section_index {
     text-align: left;
 }
-#section_index h2 {
+.section_index h2 {
     width:100%;
     float:left;
     text-align:left;
 }
-#section_index article {
+.section_index article {
     width:33%;
     float:left;
 }
-#section_index article img,
-#selection_index h3,
-#selection_index p {
+.section_index article img,
+.section_index h3,
+.section_index p {
     width:96%;
     max-width: 600px;
     height:auto;
 }
-#section_index article h3 {
-    font-size:22px;
+.section_index article h3 {
+    font-size:23px;
 }
-#section_index article p {
-    font-size:18px;
+.section_index article p {
+    font-size:19px;
     position: relative;
     bottom:12px;
 }
+.section_index a {
+    text-decoration: none;
+    color:black;
+}
 
-/* UNOS HTML */
+/* VIJESTI */
+
+#section_vijesti img {
+    width:100%;
+    max-height: 700px;
+    padding:30px 0;
+    display:block;
+}
+
+/* UNOS VIJESTI */
 
 textarea {
     resize: none;
@@ -101,4 +122,15 @@ label{
 #reset_submit {
     height: 25px;
     width: 80px;
+}
+
+/* SKRIPTA */
+
+#skripta {
+    width:70%;
+    margin:0 auto;
+    text-align: left;
+}
+#skripta img {
+    width:100%;
 }

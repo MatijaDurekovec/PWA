@@ -1,14 +1,19 @@
 <?php
 
-if(isset($_POST['naslov_vijesti']))
+    include 'connect.php';
+
+if (isset($_GET['id']))
 {
-    $kategorija = $_POST ['kategorija'];
-    $naslov_vijesti = $_POST['naslov_vijesti'];
-    $slika = $_FILES['slika']['name'];
-    $kratki_sadrzaj = $_POST['kratki_sadrzaj'];
-    $sadrzaj = $_POST['sadrzaj_vijesti'];
+    $id = $_GET['id'];
 }
-   
+
+    // UPIT NA BAZU //
+
+    $query = "SELECT * FROM `vijesti` WHERE id=$id";
+    $result = mysqli_query ($veza,$query);
+
+    $red = mysqli_fetch_array($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,31 +44,31 @@ if(isset($_POST['naslov_vijesti']))
     <main id="skripta">
             <h2>
                 <?php
-                    echo $kategorija;
+                    echo $red['kategorija'];
                 ?>
             </h2>
             <h3>
                 <?php
-                    echo $naslov_vijesti;
+                    echo $red['naslov'];
                 ?>
             </h3>
             <p>AUTOR:</p>
             <p>OBJAVLJENO:
                 <?php
-                    echo date('d-m-Y H:i:s');
+                    echo date('d-m-Y H:i:s',strtotime($red['vrijeme']));
                 ?>
             </p>
             <?php
-                echo '<img src="img/' .$slika. '">';
+                echo '<img src="img/' .$red['slika']. '">';
             ?>
             <p>
                 <?php
-                    echo $kratki_sadrzaj;
+                    echo $red['kratki_sadrzaj'];
                 ?>
             </p>
             <p>
                 <?php
-                    echo $sadrzaj;
+                    echo $red['sadrzaj'];
                 ?>
             </p>
     </main>
@@ -79,31 +84,8 @@ if(isset($_POST['naslov_vijesti']))
 
 <?php
 
-include 'connect.php';
-
-if(isset($_POST['naslov_vijesti']))
-{
-    if (isset($_POST['arhiva']))
-    {
-        $arhiva = 'Y';
-    }
-    else {
-        $arhiva = 'N';
-    }
-
-    $target = 'img/' .$slika;
-
-    // UBACIVANJE U BAZU //
-
-    $query = "INSERT INTO `vijesti`(`kategorija`, `naslov`, `kratki_sadrzaj`, `sadrzaj`, `slika`, `arhiva`) VALUES ('$kategorija','$naslov_vijesti','$kratki_sadrzaj','$sadrzaj','$slika','$arhiva')";
-    $result = mysqli_query ($veza,$query);
-
-    move_uploaded_file($_FILES['slika']['tmp_name'],'$target');
-
-    // ODSPAJANJE SA BAZOM //
+    // ODSPAJANJE SA BAZE //
 
     mysqli_close ($veza);
-}
-
 
 ?>
