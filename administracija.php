@@ -1,6 +1,7 @@
 <?php
 
     include 'connect.php';
+    session_start();
     
     // UPIT NA BAZU //
 
@@ -26,10 +27,28 @@
                 <ul>
                     <li><a href="index.php"><img src="img/bmk-logo.png"></a></li>
                     <li class="lista_polozaj"><a href="index.php">Početna</a></li>
-                    <li class="lista_polozaj"><a href="vijesti.html">Vijesti</a></li>
-                    <li class="lista_polozaj"><a href="unos.html">Unos vijesti</a></li>
+                    <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
+                    <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
                     <li class="lista_polozaj"><a href="">O nama</a></li>
+                </ul>
+                <ul id="prijava_registracija">
+                    <?php
+                        if (isset($_SESSION['username']))
+                        {
+                            echo '
+                                <li><a href="">' .$_SESSION['username']. '</a></li>
+                                <li><a href="logout.php">Odjava</a></li>
+                            ';
+                        }
+                        else
+                        {
+                            echo '
+                                <li><a href="login.php">Prijava</a></li>
+                                <li><a href="register.php">Registracija</a></li>
+                            ';
+                        }
+                    ?>
                 </ul>
             </nav>
         </div>

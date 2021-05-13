@@ -1,19 +1,6 @@
 <?php
 
-    include 'connect.php';
     session_start();
-
-if (isset($_GET['id']))
-{
-    $id = $_GET['id'];
-}
-
-    // UPIT NA BAZU //
-
-    $query = "SELECT * FROM `vijesti` WHERE id=$id";
-    $result = mysqli_query ($veza,$query);
-
-    $red = mysqli_fetch_array($result);
 
 ?>
 
@@ -60,36 +47,30 @@ if (isset($_GET['id']))
             </nav>
         </div>
     </header>
-    <main id="skripta">
-            <h2>
-                <?php
-                    echo $red['kategorija'];
-                ?>
-            </h2>
-            <h3>
-                <?php
-                    echo $red['naslov'];
-                ?>
-            </h3>
-            <p>AUTOR:</p>
-            <p>OBJAVLJENO:
-                <?php
-                    echo date('d-m-Y H:i:s',strtotime($red['vrijeme']));
-                ?>
-            </p>
-            <?php
-                echo '<img src="img/' .$red['slika']. '">';
-            ?>
-            <p>
-                <?php
-                    echo $red['kratki_sadrzaj'];
-                ?>
-            </p>
-            <p>
-                <?php
-                    echo $red['sadrzaj'];
-                ?>
-            </p>
+    <main>
+        <div id="center">
+            <form enctype="multipart/form-data" method="POST" action="skripta.php">
+                <label for="naslov">Naslov vijesti</label><br>
+                <input type="text" name="naslov_vijesti" autofocus required><br><br>
+                <label for="kratki_sadrzaj">Kratki sadržaj vijesti (do 190 znakova)</label><br>
+                <textarea cols="50" rows="12" name="kratki_sadrzaj" maxlength="190" required></textarea><br><br>
+                <label for="sadrzaj_vijesti">Sadržaj vijesti</label><br>
+                <textarea cols="50" rows="12" name="sadrzaj_vijesti" required></textarea><br><br>
+                <label for="slika" class="slika">Slika:</label><br>
+                <input type="file" accept="image/*" name="slika" required><br><br>
+                <label for="kategorija">Kategorija vijesti:</label><br>
+                <select name="kategorija" class="kategorija">
+                    <option value="E-SPORTS">E-sports</option>
+                    <option value="GAMING">Gaming</option>
+                    <option value="TEHNOLOGIJA">Tehnologija</option>
+                    <option value="YOUTUBE">YouTube</option>
+                </select><br><br>
+                <label for="spremiti">Spremiti u arhivu:</label><br>
+                <input type="checkbox" name="arhiva" id="arhiva"><br><br>
+                <input type="submit" value="Pošalji" name="reset" id="reset_submit">
+                <input type="reset" value="Poništi" name="submit" id="reset_submit">
+            </form>
+        </div>
     </main>
     <footer>
         <div id="center">
@@ -100,11 +81,3 @@ if (isset($_GET['id']))
     </footer>
 </body>
 </html>
-
-<?php
-
-    // ODSPAJANJE SA BAZE //
-
-    mysqli_close ($veza);
-
-?>

@@ -1,19 +1,6 @@
 <?php
 
-    include 'connect.php';
     session_start();
-
-if (isset($_GET['id']))
-{
-    $id = $_GET['id'];
-}
-
-    // UPIT NA BAZU //
-
-    $query = "SELECT * FROM `vijesti` WHERE id=$id";
-    $result = mysqli_query ($veza,$query);
-
-    $red = mysqli_fetch_array($result);
 
 ?>
 
@@ -60,36 +47,15 @@ if (isset($_GET['id']))
             </nav>
         </div>
     </header>
-    <main id="skripta">
-            <h2>
-                <?php
-                    echo $red['kategorija'];
-                ?>
-            </h2>
-            <h3>
-                <?php
-                    echo $red['naslov'];
-                ?>
-            </h3>
-            <p>AUTOR:</p>
-            <p>OBJAVLJENO:
-                <?php
-                    echo date('d-m-Y H:i:s',strtotime($red['vrijeme']));
-                ?>
-            </p>
-            <?php
-                echo '<img src="img/' .$red['slika']. '">';
-            ?>
-            <p>
-                <?php
-                    echo $red['kratki_sadrzaj'];
-                ?>
-            </p>
-            <p>
-                <?php
-                    echo $red['sadrzaj'];
-                ?>
-            </p>
+    <main>
+        <div id="center">
+            <section id="section_vijesti">
+                <a href="kategorija.php?kategorija=E-SPORTS"><img src="img/e-sports.jpg"></a>
+                <a href="kategorija.php?kategorija=GAMING"><img src="img/gaming.jpg"></a>
+                <a href="kategorija.php?kategorija=TEHNOLOGIJA"><img src="img/tehnologija.png"></a>
+                <a href="kategorija.php?kategorija=YOUTUBE"><img src="img/youtube.jpg"></a>
+            </section>
+        </div>
     </main>
     <footer>
         <div id="center">
@@ -100,11 +66,3 @@ if (isset($_GET['id']))
     </footer>
 </body>
 </html>
-
-<?php
-
-    // ODSPAJANJE SA BAZE //
-
-    mysqli_close ($veza);
-
-?>

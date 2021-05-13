@@ -49,6 +49,12 @@ li {
     position: relative;
     bottom: 15px;
 }
+#prijava_registracija {
+    clear:both;
+    position: relative;
+    bottom: 40px;
+    float:right;
+}
 main {
     margin-top:20px;
     clear:both;
