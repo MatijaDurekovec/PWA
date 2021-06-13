@@ -27,7 +27,7 @@
                     <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
                     <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
-                    <li class="lista_polozaj"><a href="">O nama</a></li>
+                    <li class="lista_polozaj"><a href="about.php">O nama</a></li>
                 </ul>
                 <ul id="prijava_registracija">
                     <?php
@@ -50,29 +50,28 @@
             </nav>
         </div>
     </header>
-    <main>
+    <main id="login">
         <div id="center">
             <?php
                 if (isset($_SESSION['id']))
                 {
                     echo '
+                        <p class="prijava_tekst">
                         Prijavljeni ste kao: <b>' .$_SESSION['username']. '</b>
+                        </p>
                         <form method="POST" action="logout.php">
                             <br>
-                            <input type="submit" value="Odjava" id="reset_submit">
+                            <input type="submit" value="Odjava" class="reset_submit">
                         </form>';
                 }
                 else
                 {
-                    if (isset($_SESSION['krivi_email']))
+                    if (isset($_SESSION['krivi_unos']))
                     {
-                        echo 'Krivi e-mail !';
-                        echo '<br>Pokušajte ponovo<br><br>';
-                    }
-                    if (isset($_SESSION['kriva_lozinka']))
-                    {
-                        echo 'Kriva lozinka !';
-                        echo '<br>Pokušajte ponovo<br><br>';
+                        echo '<p class="prijava_error">';
+                        echo '<b>Krivi e-mail ili lozinka !';
+                        echo '<br>Pokušajte ponovo</b><br><br></p>';
+                        unset($_SESSION['krivi_unos']);
                     }
                     echo '
                         <form method="POST">
@@ -80,8 +79,8 @@
                             <input type="email" name="email" required><br><br>
                             <label for="sifra">Lozinka</label><br>
                             <input type="password" name="sifra" required><br><br>
-                            <input type="submit" value="Prijava" id="reset_submit">
-                            <input type="reset" value="Poništi" id="reset_submit">
+                            <input type="submit" value="Prijava" class="reset_submit">
+                            <input type="reset" value="Poništi" class="reset_submit">
                         </form>';
                 }
             ?>
@@ -103,7 +102,6 @@ if (isset($_POST['sifra']))
 {
     $e_mail = $_POST['email'];
     $sifra = $_POST['sifra'];
-    echo $e_mail,$sifra;
 
     // UPIT ZA BAZU //
 
@@ -116,18 +114,16 @@ if (isset($_POST['sifra']))
         if ($red['email_korisnika'] == $e_mail)
         {
             $_SESSION['email_dobar'] = 1;
-            if ($red['sifra_korisnika'] == $sifra)
+            if (password_verify($sifra,$red['sifra_korisnika']))
             {
-                echo 'Prijava uspješna !';
                 $_SESSION['id'] = $red['id'];
                 $_SESSION['username'] = $red['username_korisnika']; 
-                unset($_SESSION['kriva_lozinka']);
-                unset($_SESSION['krivi_email']);
+                unset($_SESSION['krivi_unos']);
                 header("Location:login.php");
             }
             else 
             {
-                $_SESSION['kriva_lozinka'] = 1;
+                $_SESSION['krivi_unos'] = 1;
             }
         }
        
@@ -139,8 +135,7 @@ if (isset($_POST['sifra']))
     }
     else
     {
-        $_SESSION['krivi_email'] = 1;
-        unset($_SESSION['kriva_lozinka']);
+        $_SESSION['krivi_unos'] = 1;
         header("Location:login.php");
     }
    

@@ -32,7 +32,7 @@ if (isset($_GET['kategorija']))
                     <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
                     <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
-                    <li class="lista_polozaj"><a href="">O nama</a></li>
+                    <li class="lista_polozaj"><a href="about.php">O nama</a></li>
                 </ul>
                 <ul id="prijava_registracija">
                     <?php
@@ -63,9 +63,13 @@ if (isset($_GET['kategorija']))
                     echo $datum;
                 ?>
             </h2>
-            <section class="section_index">
+            <section class="section_kategorija">
                 <h2>
                     <?php
+                        if ($kategorija == 'GAMING') echo '<img class="blue-bar" src="img/blue-bar.png">';
+                        else if ($kategorija == 'E-SPORTS') echo '<img class="green-bar" src="img/green-bar.png">';
+                        else if ($kategorija == 'TEHNOLOGIJA') echo '<img class="yellow-bar" src="img/yellow-bar.png">';
+                        else echo '<img class="red-bar" src="img/red-bar.png">';
                         echo $kategorija;
                     ?>
                 </h2>
@@ -73,16 +77,22 @@ if (isset($_GET['kategorija']))
 
                         // UPIT ZA BAZU //
 
-                        $query = "SELECT * FROM `vijesti` WHERE arhiva='Y' AND kategorija='$kategorija'";
-                        $result = mysqli_query ($veza,$query);
-
-                        while ($red = mysqli_fetch_array ($result))
+                        $query = "SELECT * FROM `vijesti` WHERE arhiva='Y' AND kategorija=? ORDER BY `vijesti`.`vrijeme` DESC";
+                        $stmt = mysqli_stmt_init($veza);
+                        if (mysqli_stmt_prepare($stmt,$query))
+                        {
+                            mysqli_stmt_bind_param($stmt,'s',$kategorija);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                        }
+                        mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+                        while (mysqli_stmt_fetch($stmt))
                         {
                             echo '<article>';
-                            echo '<img src="img/' .$red['slika'].   '">';
-                            echo '<a href="clanak.php?id=' .$red['id']. '">';
-                            echo '<h3>' .$red['naslov']. '</h3></a>';
-                            echo '<p>' .$red['kratki_sadrzaj']. '</p>';
+                            echo '<a href="clanak.php?id=' .$autor_id. '">';
+                            echo '<img src="img/' .$autor_slika.   '">';
+                            echo '<h3>' .$autor_naslov. '</h3></a>';
+                            echo '<p>' .$autor_kratkisad. '</p>';
                             echo '</article>';
                         }
                     ?>

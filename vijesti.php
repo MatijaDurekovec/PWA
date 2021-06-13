@@ -24,7 +24,7 @@
                     <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
                     <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
-                    <li class="lista_polozaj"><a href="">O nama</a></li>
+                    <li class="lista_polozaj"><a href="about.php">O nama</a></li>
                 </ul>
                 <ul id="prijava_registracija">
                     <?php
@@ -50,10 +50,26 @@
     <main>
         <div id="center">
             <section id="section_vijesti">
-                <a href="kategorija.php?kategorija=E-SPORTS"><img src="img/e-sports.jpg"></a>
-                <a href="kategorija.php?kategorija=GAMING"><img src="img/gaming.jpg"></a>
-                <a href="kategorija.php?kategorija=TEHNOLOGIJA"><img src="img/tehnologija.png"></a>
-                <a href="kategorija.php?kategorija=YOUTUBE"><img src="img/youtube.jpg"></a>
+                <article class="sredina">
+                    <a href="kategorija.php?kategorija=E-SPORTS"><img src="img/e-sports.jpg" title="E-Sports">
+                    <h2 class="e-sp">E-SPORTS</h2>
+                    </a>
+                </article>
+                <article class="sredina">
+                    <a href="kategorija.php?kategorija=GAMING"><img src="img/gaming.jpg" title="Gaming">
+                    <h2 class="gam">GAMING</h2>
+                    </a>
+                </article>
+                <article class="sredina">
+                    <a href="kategorija.php?kategorija=TEHNOLOGIJA"><img src="img/tehnologija.png" title="Tehnologija">
+                    <h2 class="tehn">TEHNOLOGIJA</h2>
+                    </a>
+                </article>
+                <article class="sredina">
+                    <a href="kategorija.php?kategorija=YOUTUBE"><img src="img/youtube.jpg" title="YouTube">
+                    <h2 class="yt">YOUTUBE</h2>
+                    </a>
+                </article>
             </section>
         </div>
     </main>

@@ -10,10 +10,16 @@ if (isset($_GET['id']))
 
     // UPIT NA BAZU //
 
-    $query = "SELECT * FROM `vijesti` WHERE id=$id";
-    $result = mysqli_query ($veza,$query);
-
-    $red = mysqli_fetch_array($result);
+    $query = "SELECT * FROM `vijesti` WHERE id=?";
+    $stmt = mysqli_stmt_init($veza);
+    if (mysqli_stmt_prepare($stmt,$query))
+    {
+        mysqli_stmt_bind_param($stmt,'s',$id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+    }
+    mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+    mysqli_stmt_fetch($stmt);
 
 ?>
 
@@ -37,7 +43,7 @@ if (isset($_GET['id']))
                     <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
                     <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
-                    <li class="lista_polozaj"><a href="">O nama</a></li>
+                    <li class="lista_polozaj"><a href="about.php">O nama</a></li>
                 </ul>
                 <ul id="prijava_registracija">
                     <?php
@@ -63,31 +69,58 @@ if (isset($_GET['id']))
     <main id="skripta">
             <h2>
                 <?php
-                    echo $red['kategorija'];
+                    if ($autor_kategorija == 'GAMING')
+                    {
+                        echo '
+                        <h2><img class="blue-bar" src="img/blue-bar.png">GAMING</h2>
+                        ';
+                    }
+                    else if ($autor_kategorija == 'E-SPORTS')
+                    {
+                        echo '
+                        <h2><img class="green-bar" src="img/green-bar.png">E-SPORTS</h2>
+                        ';
+                    }
+                    else if ($autor_kategorija == 'TEHNOLOGIJA')
+                    {
+                        echo '
+                        <h2><img class="yellow-bar" src="img/yellow-bar.png">TEHNOLOGIJA</h2>
+                        ';
+                    }
+                    else
+                    {
+                        echo '
+                        <h2><img class="red-bar" src="img/red-bar.png">YOUTUBE</h2>
+                        ';
+                    }
                 ?>
             </h2>
             <h3>
                 <?php
-                    echo $red['naslov'];
+                    echo $autor_naslov;
                 ?>
             </h3>
-            <p>AUTOR:</p>
-            <p>OBJAVLJENO:
+            <p><b>AUTOR:</b>
                 <?php
-                    echo date('d-m-Y H:i:s',strtotime($red['vrijeme']));
+                    echo $autor_username;
+                ?>
+            </p>
+            <p><b>OBJAVLJENO:</b>
+                <?php
+                    echo date('d-m-Y H:i:s',strtotime($autor_vrijeme));
                 ?>
             </p>
             <?php
-                echo '<img src="img/' .$red['slika']. '">';
+                echo '<img class="skripta-img" src="img/' .$autor_slika. '">';
             ?>
-            <p>
+            <p><b>
                 <?php
-                    echo $red['kratki_sadrzaj'];
+                    echo $autor_kratkisad;
                 ?>
-            </p>
+            </p></b>
             <p>
                 <?php
-                    echo $red['sadrzaj'];
+                    echo $autor_sadrzaj;
                 ?>
             </p>
     </main>

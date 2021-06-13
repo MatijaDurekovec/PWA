@@ -27,7 +27,7 @@
                     <li class="lista_polozaj"><a href="vijesti.php">Vijesti</a></li>
                     <li class="lista_polozaj"><a href="unos.php">Unos vijesti</a></li>
                     <li class="lista_polozaj"><a href="administracija.php">Administracija</a></li>
-                    <li class="lista_polozaj"><a href="">O nama</a></li>
+                    <li class="lista_polozaj"><a href="about.php">O nama</a></li>
                 </ul>
                 <ul id="prijava_registracija">
                     <?php
@@ -59,81 +59,113 @@
                 ?>
             </h2>
             <section class="section_index">
-                <h2>GAMING</h2>
+                <h2><img class="blue-bar" src="img/blue-bar.png">GAMING</h2>
                     <?php
 
                         // UPIT ZA BAZU //
 
-                        $query = "SELECT * FROM `vijesti` WHERE arhiva='N' AND kategorija='GAMING' LIMIT 3";
-                        $result = mysqli_query ($veza,$query);
-
-                        while ($red = mysqli_fetch_array ($result))
+                        $query = "SELECT * FROM `vijesti` WHERE arhiva=? AND kategorija=? ORDER BY `vijesti`.`vrijeme` DESC LIMIT 3";
+                        $arhiva_baza = 'N';
+                        $kategorija_baza = 'GAMING';
+                        $stmt = mysqli_stmt_init($veza);
+                        if (mysqli_stmt_prepare($stmt,$query))
+                        {
+                            mysqli_stmt_bind_param($stmt,'ss',$arhiva_baza,$kategorija_baza);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                        }
+                        mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+                        while (mysqli_stmt_fetch($stmt))
                         {
                             echo '<article>';
-                            echo '<img src="img/' .$red['slika'].   '">';
-                            echo '<a href="clanak.php?id=' .$red['id']. '">';
-                            echo '<h3>' .$red['naslov']. '</h3></a>';
-                            echo '<p>' .$red['kratki_sadrzaj']. '</p>';
+                            echo '<a href="clanak.php?id=' .$autor_id. '">';
+                            echo '<img src="img/' .$autor_slika.   '">';
+                            echo '<h3>' .$autor_naslov. '</h3></a>';
+                            echo '<p>' .$autor_kratkisad. '</p>';
                             echo '</article>';
                         }
                     ?>
             </section>
             <section class="section_index">
-                <h2>E-SPORTS</h2>
+                <h2><img class="green-bar" src="img/green-bar.png">E-SPORTS</h2>
                     <?php
 
                         // UPIT ZA BAZU //
 
-                        $query = "SELECT * FROM `vijesti` WHERE arhiva='N' AND kategorija='E-SPORTS' LIMIT 3";
-                        $result = mysqli_query ($veza,$query);
-
-                        while ($red = mysqli_fetch_array ($result))
+                        $query = "SELECT * FROM `vijesti` WHERE arhiva=? AND kategorija=? ORDER BY `vijesti`.`vrijeme` DESC LIMIT 3";
+                        $arhiva_baza = 'N';
+                        $kategorija_baza = 'E-SPORTS';
+                        $stmt = mysqli_stmt_init($veza);
+                        if (mysqli_stmt_prepare($stmt,$query))
+                        {
+                            mysqli_stmt_bind_param($stmt,'ss',$arhiva_baza,$kategorija_baza);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                        }
+                        mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+                        while (mysqli_stmt_fetch($stmt))
                         {
                             echo '<article>';
-                            echo '<img src="img/' .$red['slika'].   '">';
-                            echo '<a href="clanak.php?id=' .$red['id']. '">';
-                            echo '<h3>' .$red['naslov']. '</h3></a>';
-                            echo '<p>' .$red['kratki_sadrzaj']. '</p>';
+                            echo '<a href="clanak.php?id=' .$autor_id. '">';
+                            echo '<img src="img/' .$autor_slika.   '">';
+                            echo '<h3>' .$autor_naslov. '</h3></a>';
+                            echo '<p>' .$autor_kratkisad. '</p>';
                             echo '</article>';
                         }
                     ?>
             </section>
             <section class="section_index">
-                <h2>TEHNOLOGIJA</h2>
+                <h2><img class="yellow-bar" src="img/yellow-bar.png">TEHNOLOGIJA</h2>
                     <?php
 
                         // UPIT ZA BAZU //
 
-                        $query = "SELECT * FROM `vijesti` WHERE arhiva='N' AND kategorija='TEHNOLOGIJA' LIMIT 3";
-                        $result = mysqli_query ($veza,$query);
-
-                        while ($red = mysqli_fetch_array ($result))
+                        $query = "SELECT * FROM `vijesti` WHERE arhiva=? AND kategorija=? ORDER BY `vijesti`.`vrijeme` DESC LIMIT 3";
+                        $arhiva_baza = 'N';
+                        $kategorija_baza = 'TEHNOLOGIJA';
+                        $stmt = mysqli_stmt_init($veza);
+                        if (mysqli_stmt_prepare($stmt,$query))
+                        {
+                            mysqli_stmt_bind_param($stmt,'ss',$arhiva_baza,$kategorija_baza);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                        }
+                        mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+                        while (mysqli_stmt_fetch($stmt))
                         {
                             echo '<article>';
-                            echo '<img src="img/' .$red['slika'].   '">';
-                            echo '<a href="clanak.php?id=' .$red['id']. '">';
-                            echo '<h3>' .$red['naslov']. '</h3></a>';
-                            echo '<p>' .$red['kratki_sadrzaj']. '</p>';
+                            echo '<a href="clanak.php?id=' .$autor_id. '">';
+                            echo '<img src="img/' .$autor_slika.   '">';
+                            echo '<h3>' .$autor_naslov. '</h3></a>';
+                            echo '<p>' .$autor_kratkisad. '</p>';
                             echo '</article>';
                         }
                     ?>
             </section>
             <section class="section_index">
-                <h2>YOUTUBE</h2>
+                <h2><img class="red-bar" src="img/red-bar.png">YOUTUBE</h2>
                     <?php
 
                         // UPIT ZA BAZU //
 
-                        $query = "SELECT * FROM `vijesti` WHERE arhiva='N' AND kategorija='YOUTUBE' LIMIT 3";
-                        $result = mysqli_query ($veza,$query);
-
-                        while ($red = mysqli_fetch_array ($result))
+                        $query = "SELECT * FROM `vijesti` WHERE arhiva=? AND kategorija=? ORDER BY `vijesti`.`vrijeme` DESC LIMIT 3";
+                        $arhiva_baza = 'N';
+                        $kategorija_baza = 'YOUTUBE';
+                        $stmt = mysqli_stmt_init($veza);
+                        if (mysqli_stmt_prepare($stmt,$query))
+                        {
+                            mysqli_stmt_bind_param($stmt,'ss',$arhiva_baza,$kategorija_baza);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                        }
+                        mysqli_stmt_bind_result($stmt,$autor_id,$autor_username,$autor_kategorija,$autor_naslov,$autor_kratkisad,$autor_sadrzaj,$autor_slika,$autor_arhiva,$autor_vrijeme);
+                        while (mysqli_stmt_fetch($stmt))
                         {
                             echo '<article>';
-                            echo '<img src="img/' .$red['slika'].   '">';
-                            echo '<a href="clanak.php?id=' .$red['id']. '">';
-                            echo '<h3>' .$red['naslov']. '</h3></a>';
-                            echo '<p>' .$red['kratki_sadrzaj']. '</p>';
+                            echo '<a href="clanak.php?id=' .$autor_id. '">';
+                            echo '<img src="img/' .$autor_slika.   '">';
+                            echo '<h3>' .$autor_naslov. '</h3></a>';
+                            echo '<p>' .$autor_kratkisad. '</p>';
                             echo '</article>';
                         }
                     ?>

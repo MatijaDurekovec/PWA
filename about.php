@@ -1,16 +1,10 @@
 <?php
 
     session_start();
-if(isset($_POST['naslov_vijesti']))
-{
-    $kategorija = $_POST ['kategorija'];
-    $naslov_vijesti = $_POST['naslov_vijesti'];
-    $slika = $_FILES['slika']['name'];
-    $kratki_sadrzaj = $_POST['kratki_sadrzaj'];
-    $sadrzaj = $_POST['sadrzaj_vijesti'];
-    $autor = $_SESSION['username'];
-}
-   
+    include 'connect.php';
+    setlocale(LC_ALL,'croatian'); 
+    $datum = ucwords (iconv('ISO-8859-2', 'UTF-8',strftime('%A, %d %B')));
+    
 ?>
 
 <!DOCTYPE html>
@@ -56,40 +50,23 @@ if(isset($_POST['naslov_vijesti']))
             </nav>
         </div>
     </header>
-    <main id="skripta">
-            <h2>
-                <?php
-                    echo $kategorija;
-                ?>
-            </h2>
-            <h3>
-                <?php
-                    echo $naslov_vijesti;
-                ?>
-            </h3>
-            <p><b>AUTOR:</b>
-                <?php
-                    echo $autor;
-                ?>
-            </p>
-            <p><b>OBJAVLJENO:</b>
-                <?php
-                    echo date('d-m-Y H:i:s');
-                ?>
-            </p>
-            <?php
-                echo '<img class="skripta-img" src="img/' .$slika. '">';
-            ?>
-            <p><b>
-                <?php
-                    echo $kratki_sadrzaj;
-                ?>
-            </p></b>
-            <p>
-                <?php
-                    echo $sadrzaj;
-                ?>
-            </p>
+    <main>
+        <div id="center">
+            <section>
+                <p>
+                    <b>BMK</b> stranica je napravljena sa ciljem kako bi se objavljivao najnoviji te najzanimljiviji sadržaj iz područja Gaming-a,E-Sports-a,Tehnologije te YouTube-a.
+                    Na <b>BMK</b> stranici bilo tko može objavljivati novi sadržaj iz ovih 4 kategorija te na taj način omogućiti da stranica bude 24/7 ažurirana novim vijestima iz svijeta.
+                    <br><br>
+                    <b>BMK</b> originalni logo se sastoji od 3 vuka koji predstavljaju upravo ta 3 kreatora <b>BMK-a</b>.
+                    <br>
+                    <img src="img/bmk-logo2.png">
+                    <br><br>
+
+                    <b>BMK</b> je naziv za tim koji se sastoji od 3 člana te svaki član čini jedno slovo imena <b>BMK</b>.
+                    U budućnosti nisu isključena daljna proširenja članova tima <b>BMK</b>.
+                </p>
+            </section>
+        </div>
     </main>
     <footer>
         <div id="center">
@@ -100,39 +77,3 @@ if(isset($_POST['naslov_vijesti']))
     </footer>
 </body>
 </html>
-
-<?php
-
-include 'connect.php';
-
-if(isset($_POST['naslov_vijesti']))
-{
-    if (isset($_POST['arhiva']))
-    {
-        $arhiva = 'Y';
-    }
-    else {
-        $arhiva = 'N';
-    }
-
-    $target = 'img/' .$slika;
-
-    // UBACIVANJE U BAZU //
-
-    $query = "INSERT INTO `vijesti`(`autor_username`,`kategorija`, `naslov`, `kratki_sadrzaj`, `sadrzaj`, `slika`, `arhiva`) VALUES (?,?,?,?,?,?,?)";
-    $stmt = mysqli_stmt_init($veza);
-    if (mysqli_stmt_prepare($stmt,$query))
-    {
-        mysqli_stmt_bind_param($stmt,'sssssss',$autor,$kategorija,$naslov_vijesti,$kratki_sadrzaj,$sadrzaj,$slika,$arhiva);
-        mysqli_stmt_execute($stmt);
-    }
-
-    move_uploaded_file($_FILES['slika']['tmp_name'],'$target');
-
-    // ODSPAJANJE SA BAZOM //
-
-    mysqli_close ($veza);
-}
-
-
-?>
